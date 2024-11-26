@@ -246,22 +246,59 @@ void two_ring()
 }
 void Blue_negitive()
 {
-  chassis.pid_drive_set(-54_in, DRIVE_SPEED, true);
+  chassis.pid_drive_set(-27_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(-30_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-18_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
   MOGO.set_value(true);
   
-  chassis.pid_turn_set(-135_deg, TURN_SPEED);
+  chassis.pid_turn_set(-90_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  lift.move(127);
-  pros::delay(500);
+  intake.move(-127);
 
-intake.move(-127);
-
-  chassis.pid_drive_set(24, DRIVE_SPEED, true);
+  chassis.pid_drive_set(20, DRIVE_SPEED, true);
   chassis.pid_wait();
 
-  lift.move (110);
+  lift.move (100);
   pros::delay(1000);
+
+  chassis.pid_turn_set(-180_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+ intake.move(-127); 
+
+ chassis.pid_drive_set(10, DRIVE_SPEED, true);
+ chassis.pid_wait();
+
+ lift.move(100);
+ pros::delay (1000);
+
+ chassis.pid_drive_set(-7, DRIVE_SPEED, true);
+ chassis.pid_wait();
+
+ chassis.pid_turn_set(-150_deg, TURN_SPEED);
+ chassis.pid_wait();
+
+ intake.move(-127);
+
+ chassis.pid_drive_set(11, DRIVE_SPEED, true);
+ chassis.pid_wait();
+
+ lift.move(100);
+ pros::delay (1000);
+
+ chassis.pid_drive_set(-20, DRIVE_SPEED, true);
+ chassis.pid_wait();
+
+ chassis.pid_turn_set(-270_deg, TURN_SPEED);
+ chassis.pid_wait();
+
+  chassis.pid_drive_set(28, DRIVE_SPEED, true);
+ chassis.pid_wait();
 }

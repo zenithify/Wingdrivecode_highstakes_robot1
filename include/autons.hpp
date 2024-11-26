@@ -14,4 +14,4 @@ void combining_movements();
 void interfered_example();
 void two_ring();
 void default_constants();
-void blue_negitive();
+void Blue_negitive();
