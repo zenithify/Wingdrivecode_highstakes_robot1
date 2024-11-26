@@ -12,6 +12,6 @@ void swing_example();
 void motion_chaining();
 void combining_movements();
 void interfered_example();
-void ring();
-
+void two_ring();
 void default_constants();
+void blue_negitive();

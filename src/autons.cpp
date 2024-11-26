@@ -220,7 +220,7 @@ void interfered_example() {
 // . . .
 // Make your own autonomous functions here!
 // . . .
-void ring() 
+void two_ring() 
 {
   chassis.pid_drive_set(-54_in, DRIVE_SPEED, true);
   chassis.pid_wait();
@@ -241,6 +241,27 @@ void ring()
   chassis.pid_drive_set(30_in, 70, true);
   chassis.pid_wait();
 
+  lift.move(110);
+  pros::delay(1000);
+}
+void Blue_negitive()
+{
+  chassis.pid_drive_set(-54_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  MOGO.set_value(true);
+  
+  chassis.pid_turn_set(-135_deg, TURN_SPEED);
+  chassis.pid_wait();
+
   lift.move(127);
+  pros::delay(500);
+
+intake.move(-127);
+
+  chassis.pid_drive_set(24, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  lift.move (110);
   pros::delay(1000);
 }

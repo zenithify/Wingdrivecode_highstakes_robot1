@@ -41,7 +41,8 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-      Auton("gets 2 rings", ring),
+      Auton("gets 2 rings", blue_negitive),
+      Auton("gets 2 rings", two_ring),
       Auton("Combine all 3 movements", combining_movements),
       Auton("Example Drive\n\nDrive forward and come back.", drive_example),
       Auton("Example Turn\n\nTurn 3 times.", turn_example),
