@@ -302,3 +302,20 @@ void Blue_negitive()
   chassis.pid_drive_set(28, DRIVE_SPEED, true);
  chassis.pid_wait();
 }
+
+void blue_solo_AWP()
+{
+  chassis.pid_drive_set(-27_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  chassis.pid_turn_set(-30_deg, TURN_SPEED);
+  chassis.pid_wait();
+
+  chassis.pid_drive_set(-18_in, DRIVE_SPEED, true);
+  chassis.pid_wait();
+
+  MOGO.set_value(true);
+
+  chassis.pid_swing_set(ez::LEFT_SWING, -90_deg, SWING_SPEED, 45);
+  chassis.pid_wait();
+}
