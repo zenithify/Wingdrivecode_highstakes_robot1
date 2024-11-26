@@ -41,8 +41,8 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-      Auton("completes all AWP criteria", blue_solo_AWP),
       Auton("gets 4 rings and touches ladder", Blue_negitive),
+      Auton("completes all AWP criteria", blue_solo_AWP),
       Auton("gets 2 rings", two_ring),
   });
 
