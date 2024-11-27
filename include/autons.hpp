@@ -16,3 +16,4 @@ void two_ring();
 void default_constants();
 void Blue_negitive();
 void blue_solo_AWP();
+void skills_auton();
