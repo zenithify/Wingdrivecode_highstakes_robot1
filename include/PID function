@@ -1,3 +1,12 @@
 #include "main.h"
 #include "api.h"
 #include "subsystems.hpp"
+
+void LB PID (int DH)
+
+int start = vex::timer::systemHighResolution();
+int duration = (start-stop);
+int KP = (200)
+int error = (std::int32_t get_angle( ) - DH);
+motor.move_voltage(KP*error);
+in stop = vex::timer::systemHighResolution();
