@@ -13,3 +13,4 @@ inline pros::Motor_Group motor_group ({LB_1, LB_2});
 inline pros::Motor lift(-12);
 inline pros::ADIDigitalOut MOGO ('A');
 inline pros::ADIDigitalOut Doinker ('B');
+inline pros::Rotation LB_rotation_sensor (5);
