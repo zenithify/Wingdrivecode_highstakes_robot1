@@ -6,7 +6,7 @@
 
 // inline pros::Motor intake(1);
 // inline pros::adi::DigitalIn limit_switch('A');
-inline pros::Motor intake(7);
-inline pros::Motor lift(-12);
+inline pros::Motor intake(20);
+inline pros::MotorGroup LB({1, -9});
 inline pros::ADIDigitalOut MOGO ('A');
 inline pros::ADIDigitalOut Doinker ('B');

@@ -15,5 +15,7 @@ void interfered_example();
 void two_ring();
 void default_constants();
 void Blue_negitive();
+void Red_negitive();
 void blue_solo_AWP();
+void red_solo_AWP();
 void skills_auton();

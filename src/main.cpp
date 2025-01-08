@@ -8,11 +8,11 @@
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    {-8, -9, -10},     // Left Chassis Ports (negative port will reverse it!)
-    {18, 19, 20},  // Right Chassis Ports (negative port will reverse it!)
+    {-2, -3, -14},     // Left Chassis Ports (negative port will reverse it!)
+    {11, 12, 13},  // Right Chassis Ports (negative port will reverse it!)
 
-    6,      // IMU Port
-    2.75,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
+    15,      // IMU Port
+    3.25,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
     450);   // Wheel RPM
 
 /**
@@ -41,9 +41,11 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+      Auton("RED gets 4 rings and touches ladder", Red_negitive),
+      Auton("BLUE gets 4 rings and touches ladder", Blue_negitive),
+      Auton("BLUE completes all AWP criteria", blue_solo_AWP),
+      Auton("RED completes all AWP criteria", red_solo_AWP),
       Auton("skills", skills_auton),
-      Auton("gets 4 rings and touches ladder", Blue_negitive),
-      Auton("completes all AWP criteria", blue_solo_AWP),
       Auton("gets 2 rings", two_ring),
   });
 
@@ -147,16 +149,28 @@ void opcontrol() {
 if (master.get_digital(DIGITAL_L1))
   {
     intake.move(-127);
-    lift.move(100);
   }
 else
 {
   intake.move (0);
-  lift.move (0);
 }
 if (master.get_digital(DIGITAL_L2))
   {
     intake.move(127);
+  }
+
+//LB code
+if (master.get_digital(DIGITAL_R1))
+  {
+    LB.move(-70);
+  }
+else
+{
+  LB.move (0);
+}
+if (master.get_digital(DIGITAL_R2))
+  {
+    LB.move(70);
   }
 // MOGO clamp code
 static bool toggle { false };    //This static variable will keep state between loops or function calls
