@@ -21,6 +21,27 @@ ez::Drive chassis(
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
+  void LBPID(double DH)
+{
+   double LBlast = LBrotation.get_angle ();
+    double LBcurrent = LBrotation.get_angle ();
+    double Kp = 200;
+    double error = (LBcurrent - DH);
+    bool PIDgo = {true};
+    while (true)
+    {
+      LBcurrent = LBrotation.get_angle ();
+      error = (LBcurrent - DH);
+      LB.move_voltage(error*Kp);
+      LBlast = LBrotation.get_angle ();
+    pros::delay (20);
+    if(error<3 && error>-3 )
+    {
+      break;
+    }
+    }
+    
+  }
 void initialize() {
   // Print our branding over your terminal :D
   ez::ez_template_print();
@@ -74,7 +95,7 @@ void disabled() {
  * starts.
  */
 void competition_initialize() {
-  // . . .
+
 }
 
 /**
@@ -146,7 +167,7 @@ void opcontrol() {
     // Put more user control code here!
     // . . .
  // Intake and lift code   
-if (master.get_digital(DIGITAL_L1))
+if (master.get_digital(DIGITAL_L2))
   {
     intake.move(-127);
   }
@@ -154,23 +175,23 @@ else
 {
   intake.move (0);
 }
-if (master.get_digital(DIGITAL_L2))
+if (master.get_digital(DIGITAL_L1))
   {
     intake.move(127);
   }
 
 //LB code
-if (master.get_digital(DIGITAL_R1))
+if (master.get_digital(DIGITAL_DOWN))
   {
-    LB.move(-70);
+    LB.move(127);
   }
 else
 {
   LB.move (0);
 }
-if (master.get_digital(DIGITAL_R2))
+if (master.get_digital(DIGITAL_UP))
   {
-    LB.move(70);
+    LB.move(-127);
   }
 // MOGO clamp code
 static bool toggle { false };    //This static variable will keep state between loops or function calls
@@ -186,5 +207,9 @@ if(master.get_digital_new_press(DIGITAL_R2)) {
 }
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
-  
+if(master.get_digital_new_press(DIGITAL_LEFT)) 
+{
+  LBPID(20);
+}
+
 }

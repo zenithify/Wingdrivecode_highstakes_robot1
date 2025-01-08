@@ -10,3 +10,4 @@ inline pros::Motor intake(20);
 inline pros::MotorGroup LB({1, -9});
 inline pros::ADIDigitalOut MOGO ('A');
 inline pros::ADIDigitalOut Doinker ('B');
+inline pros:: Rotation LBrotation (7);
