@@ -27,13 +27,13 @@ ez::Drive chassis(
     double LBcurrent = LBrotation.get_angle ();
     double Kp = 200;
     double error = (LBcurrent - DH);
-    bool PIDgo = {true};
     while (true)
     {
       LBcurrent = LBrotation.get_angle ();
       error = (LBcurrent - DH);
       LB.move_voltage(error*Kp);
       LBlast = LBrotation.get_angle ();
+      printf("test \n");
     pros::delay (20);
     if(error<3 && error>-3 )
     {
