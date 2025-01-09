@@ -11,3 +11,4 @@ inline pros::MotorGroup LB({1, -9});
 inline pros::ADIDigitalOut MOGO ('A');
 inline pros::ADIDigitalOut Doinker ('B');
 inline pros:: Rotation LBrotation (7);
+ pros::Optical Optical_sensor (8);

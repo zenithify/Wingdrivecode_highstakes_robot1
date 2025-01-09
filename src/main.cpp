@@ -43,6 +43,7 @@ ez::Drive chassis(
     
   }
 void initialize() {
+  printf("test \n");
   // Print our branding over your terminal :D
   ez::ez_template_print();
 
@@ -156,7 +157,12 @@ void opcontrol() {
 
       chassis.pid_tuner_iterate();  // Allow PID Tuner to iterate
     }
-
+ 
+  printf("test \n");
+  if(master.get_digital_new_press(DIGITAL_RIGHT)) 
+    {
+    LBPID(20);
+    }
     chassis.opcontrol_tank();  // Tank control
     // chassis.opcontrol_arcade_standard(ez::SPLIT);   // Standard split arcade
     // chassis.opcontrol_arcade_standard(ez::SINGLE);  // Standard single arcade
@@ -180,7 +186,6 @@ if (master.get_digital(DIGITAL_L1))
     intake.move(127);
   }
 
-//LB code
 if (master.get_digital(DIGITAL_DOWN))
   {
     LB.move(127);
@@ -207,9 +212,5 @@ if(master.get_digital_new_press(DIGITAL_R2)) {
 }
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
-if(master.get_digital_new_press(DIGITAL_LEFT)) 
-{
-  LBPID(20);
-}
 
 }
