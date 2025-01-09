@@ -157,12 +157,27 @@ void opcontrol() {
 
       chassis.pid_tuner_iterate();  // Allow PID Tuner to iterate
     }
- 
+  
+   static bool sorter_color = true;
+if(master.get_digital_new_press(DIGITAL_R1)) {
+   sorter_color  = !sorter_color;
+
+  if(sorter_color = true && Optical_sensor.get_hue()<=340 && Optical_sensor.get_hue()>=340)
+  {
+    intake.move(0);
+    pros::delay (200);
+  }
+  if (sorter_color = false && Optical_sensor.get_hue()<=340 && Optical_sensor.get_hue()>=340)
+  {
+    intake.move(0);
+    pros::delay (200);
+  }
   printf("test \n");
   if(master.get_digital_new_press(DIGITAL_RIGHT)) 
     {
     LBPID(20);
     }
+    
     chassis.opcontrol_tank();  // Tank control
     // chassis.opcontrol_arcade_standard(ez::SPLIT);   // Standard split arcade
     // chassis.opcontrol_arcade_standard(ez::SINGLE);  // Standard single arcade
