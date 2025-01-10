@@ -4,7 +4,13 @@
 // For installation, upgrading, documentations, and tutorials, check out our website!
 // https://ez-robotics.github.io/EZ-Template/
 /////
-
+bool sorter_color = true;
+double DH = 0;
+bool LBGO = false;
+double LBlast = LBrotation.get_angle ();
+double LBcurrent = LBrotation.get_angle ();
+double Kp = 0;
+double error = (LBcurrent - DH);
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
@@ -21,29 +27,53 @@ ez::Drive chassis(
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
-  void LBPID(double DH)
+  // LB funcntion for PID
+  void LBPID()
 {
-   double LBlast = LBrotation.get_angle ();
-    double LBcurrent = LBrotation.get_angle ();
-    double Kp = 200;
-    double error = (LBcurrent - DH);
-    while (true)
+     printf("test /n");
+    error = (LBcurrent - DH);
+    
+    while (LBGO == true)
     {
       LBcurrent = LBrotation.get_angle ();
       error = (LBcurrent - DH);
+    if (error > 0){
+        Kp = 0.8;
+      }
+    else{
+      Kp=3;
+      }
       LB.move_voltage(error*Kp);
       LBlast = LBrotation.get_angle ();
-      printf("test \n");
     pros::delay (20);
-    if(error<3 && error>-3 )
+    if(error<1000 && error>-500)
     {
+      LBGO = false;
       break;
     }
     }
     
   }
+// color sort function 
+   void colorsort()
+{
+   if(sorter_color = true && Optical_sensor.get_hue()<=370 && Optical_sensor.get_hue()>=330)
+  {
+    intake.move(0);
+    pros::delay (500);
+  }
+  if (sorter_color = false && Optical_sensor.get_hue()<=340 && Optical_sensor.get_hue()>=340)
+  {
+    intake.move(0);
+    pros::delay (500);
+  }
+}
+
 void initialize() {
-  printf("test \n");
+  // initalizes takses for LB and Color sort
+  pros::Task color_sort (colorsort);
+  pros::Task LB_PID (LBPID);
+ 
   // Print our branding over your terminal :D
   ez::ez_template_print();
 
@@ -139,6 +169,8 @@ void opcontrol() {
   chassis.drive_brake_set(driver_preference_brake);
 
   while (true) {
+    
+   
     // PID Tuner
     // After you find values that you're happy with, you'll have to set them in auton.cpp
     if (!pros::competition::is_connected()) {
@@ -157,26 +189,6 @@ void opcontrol() {
 
       chassis.pid_tuner_iterate();  // Allow PID Tuner to iterate
     }
-  
-   static bool sorter_color = true;
-if(master.get_digital_new_press(DIGITAL_R1)) {
-   sorter_color  = !sorter_color;
-
-  if(sorter_color = true && Optical_sensor.get_hue()<=340 && Optical_sensor.get_hue()>=340)
-  {
-    intake.move(0);
-    pros::delay (200);
-  }
-  if (sorter_color = false && Optical_sensor.get_hue()<=340 && Optical_sensor.get_hue()>=340)
-  {
-    intake.move(0);
-    pros::delay (200);
-  }
-  printf("test \n");
-  if(master.get_digital_new_press(DIGITAL_RIGHT)) 
-    {
-    LBPID(20);
-    }
     
     chassis.opcontrol_tank();  // Tank control
     // chassis.opcontrol_arcade_standard(ez::SPLIT);   // Standard split arcade
@@ -187,6 +199,17 @@ if(master.get_digital_new_press(DIGITAL_R1)) {
     // . . .
     // Put more user control code here!
     // . . .
+
+//Color sorter red blue changer
+if(master.get_digital_new_press(DIGITAL_R1)) {
+   sorter_color  = !sorter_color;
+}
+//LB start code
+  if(master.get_digital_new_press(DIGITAL_LEFT)) 
+    {
+    DH = 13306;
+    LBGO = true;
+    }  
  // Intake and lift code   
 if (master.get_digital(DIGITAL_L2))
   {
@@ -226,6 +249,6 @@ if(master.get_digital_new_press(DIGITAL_R2)) {
     doinkerv = !doinkerv;    //Flip the toggle to match piston state
 }
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
-  }
-
-}
+  
+  
+  }}
